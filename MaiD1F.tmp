@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://1vqoc8t5le1f"]
+
+[ext_resource type="Script" path="res://CharacterMovement.gd" id="2_ow20u"]
+[ext_resource type="Script" path="res://IsometricCameraCharacter.gd" id="3_xht3v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_iv5ae"]
+
+[sub_resource type="Skin" id="Skin_aurdu"]
+
+[sub_resource type="Environment" id="Environment_48uyp"]
+fog_enabled = true
+fog_light_color = Color(0.478431, 0.611765, 0.729412, 1)
+fog_light_energy = 0.87
+fog_sky_affect = 0.36
+volumetric_fog_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tvl0h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7tjut"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 2.80901, 11.122, 2.95791)
+light_color = Color(0.839216, 0.862745, 0.890196, 1)
+light_energy = 0.457
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.00173855, -2.38419e-07, -0.00846982)
+mesh = SubResource("BoxMesh_iv5ae")
+skin = SubResource("Skin_aurdu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48uyp")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("2_ow20u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.00322342, 1.19577, 0.000238895)
+mesh = SubResource("CapsuleMesh_tvl0h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.00311674, 1.19537, 0)
+shape = SubResource("CapsuleShape3D_7tjut")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.771625, 0.636078, 0, -0.636078, 0.771625, -0.0026927, 4.31267, 3.72972)
+script = ExtResource("3_xht3v")

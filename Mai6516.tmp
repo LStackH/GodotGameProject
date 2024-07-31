@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://1vqoc8t5le1f"]
+
+[ext_resource type="Script" path="res://CameraController.gd" id="2_jhohk"]
+[ext_resource type="Script" path="res://CharacterMovement.gd" id="2_ow20u"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tvl0h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7tjut"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c2ky"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a7dce"]
+
+[sub_resource type="Environment" id="Environment_48uyp"]
+ambient_light_source = 3
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.8034
+volumetric_fog_albedo = Color(0.894118, 0.94902, 1, 1)
+volumetric_fog_emission = Color(0.00392157, 0.0196078, 0.168627, 1)
+volumetric_fog_length = 379.07
+
+[node name="Main" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0601665, 0)
+script = ExtResource("2_ow20u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.00322342, 1.19577, 0.000238895)
+mesh = SubResource("CapsuleMesh_tvl0h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.00311674, 1.19537, 0)
+shape = SubResource("CapsuleShape3D_7tjut")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.512043, 0.85896, 0, -0.85896, 0.512043, 0, 2.664, 0.991)
+size = 0.06
+script = ExtResource("2_jhohk")
+
+[node name="Platform" type="StaticBody3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000177622, 0.00313067, -0.00144601)
+mesh = SubResource("BoxMesh_2c2ky")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005656, 1.19209e-07, -0.000493288)
+shape = SubResource("BoxShape3D_a7dce")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 1.83899, 6.612, 3.37166)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48uyp")

@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://1vqoc8t5le1f"]
+
+[ext_resource type="Material" uid="uid://bes6jt3p3tysk" path="res://VolumetricFogMaterial.tres" id="2_61rf8"]
+[ext_resource type="Script" path="res://CharacterMovement.gd" id="2_ow20u"]
+[ext_resource type="Script" path="res://FogController.gd" id="3_q27e3"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tvl0h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7tjut"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c2ky"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a7dce"]
+
+[sub_resource type="Environment" id="Environment_48uyp"]
+fog_height = 0.2
+fog_height_density = 2.4615
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.7559
+volumetric_fog_albedo = Color(0.903598, 0.903598, 0.903598, 1)
+volumetric_fog_emission = Color(0.400698, 0.400698, 0.400698, 1)
+volumetric_fog_anisotropy = -0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_j27d4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0601665, 0)
+script = ExtResource("2_ow20u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.00322342, 1.19577, 0.000238895)
+mesh = SubResource("CapsuleMesh_tvl0h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.00311674, 1.19537, 0)
+shape = SubResource("CapsuleShape3D_7tjut")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.771625, 0.636078, 0, -0.636078, 0.771625, -0.0026927, 4.00422, 2.54139)
+
+[node name="Platform" type="StaticBody3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000177622, 0.00313067, -0.00144601)
+mesh = SubResource("BoxMesh_2c2ky")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005656, 1.19209e-07, -0.000493288)
+shape = SubResource("BoxShape3D_a7dce")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 1.83899, 6.612, 3.37166)
+light_color = Color(0.75816, 0.792409, 0.832285, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48uyp")
+
+[node name="FogMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 3.12419, -0.115279)
+mesh = SubResource("BoxMesh_j27d4")
+surface_material_override/0 = ExtResource("2_61rf8")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("3_q27e3")
