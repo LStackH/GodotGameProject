@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://1vqoc8t5le1f"]
+
+[ext_resource type="Material" uid="uid://bmbou0ck3sjar" path="res://materials/floor_material.tres" id="1_k5jsy"]
+[ext_resource type="PackedScene" uid="uid://0kgnt3wfmey0" path="res://Scenes/player/lowpolyman.tscn" id="1_sb04a"]
+[ext_resource type="Material" uid="uid://bcj4hidtg7yj8" path="res://materials/wall_material.tres" id="2_888id"]
+[ext_resource type="Environment" uid="uid://qpph2w2p3ekx" path="res://Resources/level_1_enviroment.tres" id="2_dah0n"]
+[ext_resource type="PackedScene" uid="uid://dxmk6vre737fa" path="res://Scenes/Key.tscn" id="3_kd3yc"]
+[ext_resource type="Shader" path="res://Shaders/Dense_Fog_Material.gdshader" id="6_4b40k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eburj"]
+render_priority = 0
+shader = ExtResource("6_4b40k")
+shader_parameter/camera_position = null
+shader_parameter/player_position = null
+shader_parameter/fog_density = 0.05
+shader_parameter/fog_start = 1.0
+shader_parameter/fog_end = 20.0
+shader_parameter/clear_radius = 100.0
+
+[node name="world" type="Node3D"]
+
+[node name="map" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="map"]
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="floor3" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.4779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="floor2" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.23684)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(2, 1, 4.479)
+
+[node name="wall1" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.49704, 2, 0)
+material_override = ExtResource("2_888id")
+use_collision = true
+size = Vector3(1, 3, 8)
+
+[node name="wall2" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.50296, 2, 0)
+material_override = ExtResource("2_888id")
+use_collision = true
+size = Vector3(1, 3, 8)
+
+[node name="wall3" type="CSGBox3D" parent="map"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00296136, 2, 4.5)
+material_override = ExtResource("2_888id")
+use_collision = true
+size = Vector3(1, 3, 10)
+
+[node name="wall4" type="CSGBox3D" parent="map"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.99704, 2, -4.5)
+material_override = ExtResource("2_888id")
+use_collision = true
+size = Vector3(1, 3, 4)
+
+[node name="wall5" type="CSGBox3D" parent="map"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.9935, 2, -4.5)
+material_override = ExtResource("2_888id")
+use_collision = true
+size = Vector3(1, 3, 4)
+
+[node name="MainCamera" type="Camera3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 26.6183, 46.572, 33.6188)
+light_color = Color(0.610587, 0.604597, 0.782707, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_dah0n")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6978, -2.39671)
+shape = 4
+material = SubResource("ShaderMaterial_eburj")
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainViewport" type="SubViewport" parent="ViewportContainer"]
+
+[node name="MainViewportCamera" type="Camera3D" parent="ViewportContainer/MainViewport"]
+
+[node name="FogClearingViewport" type="SubViewport" parent="ViewportContainer"]
+
+[node name="FogClearingCamera" type="Camera3D" parent="ViewportContainer/FogClearingViewport"]
+
+[node name="Player" parent="." instance=ExtResource("1_sb04a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.522728, 0)
+
+[node name="Key" parent="." instance=ExtResource("3_kd3yc")]
+transform = Transform3D(-0.000331612, -0.0499989, 7.5496e-09, -0.0499977, 0.000331604, 0.000353424, -0.000353417, 2.33644e-06, -0.0499988, 2.38454, 0.712753, 0.0366035)
+bounce_amplitude = 0.1
+bounce_speed = 0.5

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxmk6vre737fa"]
+
+[ext_resource type="Script" path="res://Scripts/Key.gd" id="1_cevyl"]
+[ext_resource type="ArrayMesh" uid="uid://domuiex71sp5u" path="res://Assets/3D Models/key_V1.res" id="2_4oxkt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_12nsj"]
+size = Vector3(0.826172, 2.1897, 0.329102)
+
+[node name="Key" type="Area3D"]
+transform = Transform3D(-0.0066322, -0.999978, 0, -0.999978, 0.0066322, 8.74228e-08, -8.74209e-08, 5.79806e-10, -1, 0, 0, 0)
+script = ExtResource("1_cevyl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.457981, -4.82544e-17, -1.06581e-14, -2.32831e-10, 0.952004, 5.55112e-17, 1.06581e-14, -3.88578e-16, 0.457971, 8.92827e-08, -5.92154e-10, 1.0213)
+mesh = ExtResource("2_4oxkt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.999956, -0.0066323, 0.00663212, -0.00663212, 4.39414e-05, 0.999978, -0.00663229, -0.999978, -4.37114e-08, -0.00351374, -0.00595813, 0.0683842)
+shape = SubResource("BoxShape3D_12nsj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

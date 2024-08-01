@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkwm1la0ts1u4"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/CharacterMovement.gd" id="1_rc8xg"]
+[ext_resource type="Script" path="res://Scripts/CameraScripts/CameraRotation.gd" id="2_3qeuy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tvl0h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7tjut"]
+
+[node name="PlayerV1" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.745721, 0)
+script = ExtResource("1_rc8xg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_tvl0h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_7tjut")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.512043, 0.85896, 0, -0.85896, 0.512043, 0, 2, 0.991)
+size = 0.06
+script = ExtResource("2_3qeuy")

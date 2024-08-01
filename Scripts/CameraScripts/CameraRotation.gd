@@ -60,7 +60,7 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and is_right_click_held:
 		# Update target rotation based on mouse movement
 		target_rotation.x -= event.relative.y * mouse_sensitivity
-		target_rotation.y -= event.relative.x * mouse_sensitivity
+		target_rotation.y -= -(event.relative.x) * mouse_sensitivity
 		
 		# Limit vertical rotation to prevent flipping and clipping
 		target_rotation.x = clamp(target_rotation.x, min_vertical_rotation, max_vertical_rotation)
