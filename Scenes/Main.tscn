@@ -1,13 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://1vqoc8t5le1f"]
+[gd_scene load_steps=12 format=3 uid="uid://1vqoc8t5le1f"]
 
 [ext_resource type="Material" uid="uid://bmbou0ck3sjar" path="res://materials/floor_material.tres" id="1_k5jsy"]
 [ext_resource type="PackedScene" uid="uid://0kgnt3wfmey0" path="res://Scenes/player/lowpolyman.tscn" id="1_sb04a"]
 [ext_resource type="Material" uid="uid://bcj4hidtg7yj8" path="res://materials/wall_material.tres" id="2_888id"]
 [ext_resource type="Environment" uid="uid://qpph2w2p3ekx" path="res://Resources/level_1_enviroment.tres" id="2_dah0n"]
+[ext_resource type="Script" path="res://addons/proto_shape/proto_ramp/proto_ramp.gd" id="3_51rfe"]
 [ext_resource type="PackedScene" uid="uid://dxmk6vre737fa" path="res://Scenes/Key.tscn" id="3_kd3yc"]
 [ext_resource type="Shader" path="res://Shaders/Dense_Fog_Material.gdshader" id="6_4b40k"]
+[ext_resource type="PackedScene" uid="uid://ow4ewqv7m6a6" path="res://Scenes/Mob1.tscn" id="7_2xo0l"]
+[ext_resource type="PackedScene" uid="uid://eqte88rjgec5" path="res://Scenes/startingisland.tscn" id="9_kg26j"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eburj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lypdd"]
 render_priority = 0
 shader = ExtResource("6_4b40k")
 shader_parameter/camera_position = null
@@ -15,7 +18,10 @@ shader_parameter/player_position = null
 shader_parameter/fog_density = 0.05
 shader_parameter/fog_start = 1.0
 shader_parameter/fog_end = 20.0
-shader_parameter/clear_radius = 100.0
+shader_parameter/clear_radius = 5.0
+
+[sub_resource type="FogMaterial" id="FogMaterial_0m6t8"]
+density = -2.0
 
 [node name="world" type="Node3D"]
 
@@ -32,8 +38,80 @@ material_override = ExtResource("1_k5jsy")
 use_collision = true
 size = Vector3(10, 1, 10)
 
+[node name="floor7" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4637, -0.99477, -10.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor8" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4637, -0.99477, -13.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor9" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4637, -0.99477, -16.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor10" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4637, -0.99477, -10.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor11" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4637, -0.99477, -13.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor12" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4637, -0.99477, -16.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor13" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4637, -0.99477, -10.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor14" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4637, -0.99477, -13.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor15" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4637, -0.99477, -16.9779)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor5" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48.9682)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(50, 1, 50)
+
 [node name="floor2" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.23684)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(2, 1, 4.479)
+
+[node name="floor6" type="CSGBox3D" parent="map"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.4932, 0, -14.2368)
+material_override = ExtResource("1_k5jsy")
+use_collision = true
+size = Vector3(2, 1, 10.9558)
+
+[node name="floor4" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.7194)
 material_override = ExtResource("1_k5jsy")
 use_collision = true
 size = Vector3(2, 1, 4.479)
@@ -68,11 +146,21 @@ material_override = ExtResource("2_888id")
 use_collision = true
 size = Vector3(1, 3, 4)
 
-[node name="MainCamera" type="Camera3D" parent="."]
+[node name="ProtoRamp" type="CSGCombiner3D" parent="map"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 26.9735, -0.957604, -14)
+use_collision = true
+script = ExtResource("3_51rfe")
+type = 0
+width = 10.001
+height = 1.46454
+depth = 2.001
+anchor = 0
+anchor_fixed = true
+material = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 26.6183, 46.572, 33.6188)
-light_color = Color(0.610587, 0.604597, 0.782707, 1)
+light_color = Color(0.496735, 0.57829, 0.738592, 1)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -81,24 +169,25 @@ environment = ExtResource("2_dah0n")
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6978, -2.39671)
 shape = 4
-material = SubResource("ShaderMaterial_eburj")
-
-[node name="ViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MainViewport" type="SubViewport" parent="ViewportContainer"]
-
-[node name="MainViewportCamera" type="Camera3D" parent="ViewportContainer/MainViewport"]
-
-[node name="FogClearingViewport" type="SubViewport" parent="ViewportContainer"]
-
-[node name="FogClearingCamera" type="Camera3D" parent="ViewportContainer/FogClearingViewport"]
-
-[node name="Player" parent="." instance=ExtResource("1_sb04a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.522728, 0)
+material = SubResource("ShaderMaterial_lypdd")
 
 [node name="Key" parent="." instance=ExtResource("3_kd3yc")]
 transform = Transform3D(-0.000331612, -0.0499989, 7.5496e-09, -0.0499977, 0.000331604, 0.000353424, -0.000353417, 2.33644e-06, -0.0499988, 2.38454, 0.712753, 0.0366035)
 bounce_amplitude = 0.1
 bounce_speed = 0.5
+
+[node name="Mob1" parent="." instance=ExtResource("7_2xo0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57375, -47.7339)
+
+[node name="Player" parent="." instance=ExtResource("1_sb04a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46353, 3.27021, -33.5091)
+
+[node name="FogVolume2" type="FogVolume" parent="Player"]
+transform = Transform3D(1.6383, 0.81116, 0.81116, 0, 1.41421, -1.41421, -1.14715, 1.15846, 1.15846, 0, 1, 0)
+visible = false
+size = Vector3(2, 3, 2)
+shape = 2
+material = SubResource("FogMaterial_0m6t8")
+
+[node name="startingisland" parent="." instance=ExtResource("9_kg26j")]
+transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, 98, 0.163342, -31.7028)

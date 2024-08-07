@@ -6,5 +6,8 @@
 render_priority = 0
 shader = ExtResource("1_bgtu6")
 shader_parameter/camera_position = null
-shader_parameter/fog_start = 10.0
-shader_parameter/fog_end = 10.0
+shader_parameter/player_position = null
+shader_parameter/fog_density = 0.05
+shader_parameter/fog_start = 1.0
+shader_parameter/fog_end = 20.0
+shader_parameter/clear_radius = 5.0

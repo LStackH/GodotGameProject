@@ -15,9 +15,17 @@ run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://Assets/icon.svg"
 
+[autoload]
+
+Shaker="*res://addons/shaker/src/Shaker.gd"
+
 [dotnet]
 
 project/assembly_name="Project 3 Isometric Game"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/asset_dock/plugin.cfg", "res://addons/proto_shape/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/shaker/plugin.cfg")
 
 [input]
 
@@ -115,5 +123,6 @@ quit={
 
 [rendering]
 
+environment/volumetric_fog/volume_size=128
 environment/volumetric_fog/volume_depth=128
 anti_aliasing/quality/msaa_3d=1
