@@ -1,4 +1,4 @@
-[gd_resource type="Environment" load_steps=5 format=3 uid="uid://qpph2w2p3ekx"]
+[gd_resource type="Environment" load_steps=5 format=3 uid="uid://dijvtr4ne6xsl"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3qvp6"]
 
@@ -33,6 +33,7 @@ glow_strength = 0.65
 glow_bloom = 0.22
 glow_blend_mode = 0
 fog_light_color = Color(0, 0.233833, 0.61, 1)
+volumetric_fog_enabled = true
 volumetric_fog_density = 1.0
 volumetric_fog_albedo = Color(8.18223e-07, 0.267917, 0.442957, 1)
 volumetric_fog_length = 204.03

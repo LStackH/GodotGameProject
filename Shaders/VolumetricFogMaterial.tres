@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bes6jt3p3tysk"]
-
-[ext_resource type="Shader" path="res://Shaders/VolumetricFog.gdshader" id="1_i1ysi"]
-
-[resource]
-render_priority = 0
-shader = ExtResource("1_i1ysi")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://20qlj4u44nv1"]
+
+[ext_resource type="Script" path="res://Scripts/Boid3D.gd" id="1_3pmmy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_agdpr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1a3vb"]
+
+[node name="Bird" type="Node3D"]
+script = ExtResource("1_3pmmy")
+speed = 1.0
+max_force = 1.0
+avoid_radius = 1.0
+
+[node name="CSGBox3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_agdpr")
+
+[node name="CSGBox3D2" type="CSGMesh3D" parent="CSGBox3D"]
+transform = Transform3D(0.198082, -0.75639, 8.62911e-09, 0.229052, 0.65412, 3.94589e-09, -1.00122e-08, 1.51189e-08, 0.260991, 0.734623, -0.298613, 0)
+mesh = SubResource("BoxMesh_1a3vb")
+
+[node name="CSGBox3D3" type="CSGMesh3D" parent="CSGBox3D"]
+transform = Transform3D(0.19827, 0.755854, -8.62299e-09, -0.228889, 0.654741, 3.93881e-09, 1.00051e-08, 1.50918e-08, 0.260991, -0.732741, -0.298613, 0)
+mesh = SubResource("BoxMesh_1a3vb")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]

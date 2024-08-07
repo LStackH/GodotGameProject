@@ -1,0 +1,148 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf1lmdfly01vk"]
+
+[ext_resource type="Material" uid="uid://bmbou0ck3sjar" path="res://materials/floor_material.tres" id="1_tvqfn"]
+[ext_resource type="Material" uid="uid://bcj4hidtg7yj8" path="res://materials/wall_material.tres" id="2_3nixx"]
+[ext_resource type="Script" path="res://addons/proto_shape/proto_ramp/proto_ramp.gd" id="3_7rjbb"]
+
+[node name="map" type="Node3D"]
+
+[node name="floor" type="CSGBox3D" parent="."]
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="floor3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.4779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="floor7" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4637, -0.99477, -10.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor8" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4637, -0.99477, -13.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor9" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4637, -0.99477, -16.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor10" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4637, -0.99477, -10.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor11" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4637, -0.99477, -13.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor12" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4637, -0.99477, -16.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor13" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4637, -0.99477, -10.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor14" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4637, -0.99477, -13.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor15" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4637, -0.99477, -16.9779)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(3, 3, 3)
+
+[node name="floor5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48.9682)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="floor2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.23684)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(2, 1, 4.479)
+
+[node name="floor6" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.4932, 0, -14.2368)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(2, 1, 10.9558)
+
+[node name="floor4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.7194)
+material_override = ExtResource("1_tvqfn")
+use_collision = true
+size = Vector3(2, 1, 4.479)
+
+[node name="wall1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.49704, 2, 0)
+material_override = ExtResource("2_3nixx")
+use_collision = true
+size = Vector3(1, 3, 8)
+
+[node name="wall2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.50296, 2, 0)
+material_override = ExtResource("2_3nixx")
+use_collision = true
+size = Vector3(1, 3, 8)
+
+[node name="wall3" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00296136, 2, 4.5)
+material_override = ExtResource("2_3nixx")
+use_collision = true
+size = Vector3(1, 3, 10)
+
+[node name="wall4" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.99704, 2, -4.5)
+material_override = ExtResource("2_3nixx")
+use_collision = true
+size = Vector3(1, 3, 4)
+
+[node name="wall5" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.9935, 2, -4.5)
+material_override = ExtResource("2_3nixx")
+use_collision = true
+size = Vector3(1, 3, 4)
+
+[node name="ProtoRamp" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 26.9735, -0.957604, -14)
+use_collision = true
+script = ExtResource("3_7rjbb")
+type = 0
+width = 10.001
+height = 1.46454
+depth = 2.001
+anchor = 0
+anchor_fixed = true
+material = null
+
+[node name="_CSGPolygon3D_46915" type="CSGPolygon3D" parent="ProtoRamp"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.0005, 0, 0)
+polygon = PackedVector2Array(0, 0, 2.001, 0, 2.001, 1.46454)
+depth = 10.001
+
+[node name="@CSGPolygon3D@47178" type="CSGPolygon3D" parent="ProtoRamp"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.0005, 0, 0)
+polygon = PackedVector2Array(0, 0, 2.001, 0, 2.001, 1.46454)
+depth = 10.001

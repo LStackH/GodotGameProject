@@ -67,9 +67,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.734, -0.464069, -72.6168)
 
 [node name="Bird" parent="." instance=ExtResource("9_naiq5")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 100.769, 5.868, -50.7351)
+speed = null
+max_force = 0.3
+neighbor_radius = null
+avoid_radius = null
+ground_level = null
 
 [node name="Bird2" parent="." instance=ExtResource("9_naiq5")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 99.1515, 5.868, -50.7351)
+speed = null
+neighbor_radius = null
+avoid_radius = null
+ground_level = null
 
 [node name="Bird3" parent="." instance=ExtResource("9_naiq5")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 102.046, 5.868, -50.7351)
+speed = null
+neighbor_radius = null
+avoid_radius = null
+ground_level = null

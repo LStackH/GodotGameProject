@@ -8,7 +8,7 @@ extends CharacterBody3D
 @onready var info_label = $InfoLabel  # Reference to the new label node
 
 @onready var fog_volume = get_parent().get_node("FogVolume")
-@export var fog_material : ShaderMaterial
+#@export var fog_material : ShaderMaterial
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -29,11 +29,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	fog_material = fog_volume.material
-	fog_material.set_shader_parameter("fog_start", 1.0)
-	fog_material.set_shader_parameter("fog_end", 20.0)
-	fog_material.set_shader_parameter("fog_density", 0.05)
-	fog_material.set_shader_parameter("clear_radius", 5.0)
+	#fog_material = fog_volume.material
+	#fog_material.set_shader_parameter("fog_start", 1.0)
+	#fog_material.set_shader_parameter("fog_end", 20.0)
+	#fog_material.set_shader_parameter("fog_density", 0.05)
+	#fog_material.set_shader_parameter("clear_radius", 5.0)
 	
 	# Initialize the camera position
 	spring_arm.rotation_degrees = Vector3(-35, 45, 0)  # Adjusting the angle for isometric view
@@ -63,8 +63,8 @@ func _unhandled_input(event):
 func _process(delta):
 	var camera_position = spring_arm.global_transform.origin
 	var player_position = global_transform.origin
-	fog_material.set_shader_parameter("camera_position", camera_position)
-	fog_material.set_shader_parameter("player_position", player_position)
+	#fog_material.set_shader_parameter("camera_position", camera_position)
+	#fog_material.set_shader_parameter("player_position", player_position)
 	
 	# Update the info label with camera information
 	info_label.text = "Camera Position: " + str(camera_position) + "\n" + \

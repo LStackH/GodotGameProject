@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://gb6ycwuwe8p0"]
+
+[ext_resource type="PackedScene" uid="uid://bf1lmdfly01vk" path="res://Scenes/testmap.tscn" id="1_5mibq"]
+[ext_resource type="Environment" uid="uid://dijvtr4ne6xsl" path="res://Resources/fog_level_enviroment.tres" id="2_wcq4r"]
+[ext_resource type="Shader" path="res://Shaders/Dense_Fog_Material.gdshader" id="3_3v8l4"]
+[ext_resource type="PackedScene" uid="uid://dxmk6vre737fa" path="res://Scenes/Key.tscn" id="4_7wshv"]
+[ext_resource type="PackedScene" uid="uid://ow4ewqv7m6a6" path="res://Scenes/Mob1.tscn" id="5_36l0x"]
+[ext_resource type="PackedScene" uid="uid://0kgnt3wfmey0" path="res://Scenes/player/lowpolyman.tscn" id="6_os1ji"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lypdd"]
+render_priority = 0
+shader = ExtResource("3_3v8l4")
+shader_parameter/camera_position = null
+shader_parameter/player_position = null
+shader_parameter/fog_density = 0.05
+shader_parameter/fog_start = 1.0
+shader_parameter/fog_end = 20.0
+shader_parameter/clear_radius = 5.0
+
+[sub_resource type="FogMaterial" id="FogMaterial_0m6t8"]
+density = -2.0
+
+[node name="world" type="Node3D"]
+
+[node name="map" parent="." instance=ExtResource("1_5mibq")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 26.6183, 46.572, 33.6188)
+light_color = Color(0.496735, 0.57829, 0.738592, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_wcq4r")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6978, -2.39671)
+shape = 4
+material = SubResource("ShaderMaterial_lypdd")
+
+[node name="Key" parent="." instance=ExtResource("4_7wshv")]
+transform = Transform3D(-0.000331612, -0.0499989, 7.5496e-09, -0.0499977, 0.000331604, 0.000353424, -0.000353417, 2.33644e-06, -0.0499988, 2.38454, 0.712753, 0.0366035)
+bounce_amplitude = 0.1
+bounce_speed = 0.5
+
+[node name="Mob1" parent="." instance=ExtResource("5_36l0x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.37143, 1.83548, -47.7339)
+
+[node name="Player" parent="." instance=ExtResource("6_os1ji")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0425739, 0.625018, 1.48955)
+
+[node name="FogVolume2" type="FogVolume" parent="Player"]
+transform = Transform3D(1.6383, 0.81116, 0.81116, 0, 1.41421, -1.41421, -1.14715, 1.15846, 1.15846, 0, 1, 0)
+visible = false
+size = Vector3(2, 3, 2)
+shape = 2
+material = SubResource("FogMaterial_0m6t8")
