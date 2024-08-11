@@ -11,7 +11,7 @@ transform = Transform3D(-0.0066322, -0.999978, 0, -0.999978, 0.0066322, 8.74228e
 script = ExtResource("1_cevyl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.457981, -4.82544e-17, -1.06581e-14, -2.32831e-10, 0.952004, 5.55112e-17, 1.06581e-14, -3.88578e-16, 0.457971, 8.92827e-08, -5.92154e-10, 1.0213)
+transform = Transform3D(0.457981, -4.82544e-17, -1.42109e-14, -2.32831e-10, 0.952004, 5.55112e-17, 1.42109e-14, -4.44089e-16, 0.457971, 8.92827e-08, -5.92154e-10, 1.0213)
 mesh = ExtResource("2_4oxkt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

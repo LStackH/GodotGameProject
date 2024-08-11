@@ -3,5 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://d2wjk3yrn08qd" path="res://Assets/AssetPack1/PNG/Dark/texture_05.png" id="1_xjbn1"]
 
 [resource]
+cull_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.938062, 1, 0.165222, 1)
 albedo_texture = ExtResource("1_xjbn1")
 uv1_triplanar = true

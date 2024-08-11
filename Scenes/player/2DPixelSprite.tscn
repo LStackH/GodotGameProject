@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://c5rlwttupnyba"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/2DPixelSpriteMovement.gd" id="1_0il37"]
+[ext_resource type="Texture2D" uid="uid://ckp254gja2dm4" path="res://AnimationSprites/Shinobi/Walk.png" id="2_xs1on"]
+[ext_resource type="CameraAttributesPractical" uid="uid://buyksdham6vvw" path="res://CameraAttributes/DepthOfField.tres" id="3_2pcq4"]
+[ext_resource type="Script" path="res://Scripts/CameraScripts/base_camera_script.gd" id="4_p2ipl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7we7j"]
+radius = 0.186487
+height = 0.780686
+
+[sub_resource type="Animation" id="Animation_hq7pg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(42, 48, 28, 80)]
+}
+
+[sub_resource type="Animation" id="Animation_6hn8p"]
+resource_name = "walk"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(42, 48, 28, 80), Rect2(170, 49, 35, 79), Rect2(298, 48, 34, 80), Rect2(426, 47, 25, 81), Rect2(554, 48, 27, 80), Rect2(682, 49, 35, 79), Rect2(810, 48, 35, 80), Rect2(938, 47, 28, 81)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_310lm"]
+_data = {
+"RESET": SubResource("Animation_hq7pg"),
+"walk": SubResource("Animation_6hn8p")
+}
+
+[sub_resource type="FogMaterial" id="FogMaterial_oga3p"]
+density = -2.0
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_0il37")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7we7j")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_xs1on")
+region_enabled = true
+region_rect = Rect2(42, 48, 28, 80)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_310lm")
+}
+
+[node name="SpringArmPivot" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.909961, 0.414693, 0, -0.414693, 0.909961, 0, 0, 0)
+spring_length = 3.0
+
+[node name="base_camera" type="Camera3D" parent="SpringArmPivot/SpringArm3D" node_paths=PackedStringArray("target_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 0)
+attributes = ExtResource("3_2pcq4")
+script = ExtResource("4_p2ipl")
+target_node = NodePath("../../..")
+
+[node name="FogVolume2" type="FogVolume" parent="SpringArmPivot/SpringArm3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+size = Vector3(3, 6, 2)
+shape = 2
+material = SubResource("FogMaterial_oga3p")
+
+[node name="FogVolume3" type="FogVolume" parent="SpringArmPivot"]
+size = Vector3(1, 1, 1)
+shape = 0
+material = SubResource("FogMaterial_oga3p")

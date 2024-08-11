@@ -9,7 +9,8 @@ fractal_type = 2
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v0m1m"]
 seamless = true
 as_normal_map = true
-bump_strength = 1.5
+bump_strength = 6.3
+normalize = false
 noise = SubResource("FastNoiseLite_2mls6")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_asmv5"]
@@ -20,7 +21,8 @@ fractal_type = 2
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_popyu"]
 seamless = true
 as_normal_map = true
-bump_strength = 1.5
+bump_strength = 6.5
+normalize = false
 noise = SubResource("FastNoiseLite_asmv5")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dd575"]
@@ -38,7 +40,7 @@ shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.02
 shader_parameter/wave_direction = Vector2(2, 0)
 shader_parameter/wave_direction2 = Vector2(0, 1)
-shader_parameter/time_scale = 0.015
+shader_parameter/time_scale = 0.025
 shader_parameter/noise_scale = 10.0
 shader_parameter/height_scale = 0.004
 shader_parameter/color_deep = Color(0.229385, 0.367363, 0.339261, 1)

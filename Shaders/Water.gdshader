@@ -23,17 +23,18 @@ uniform float near = 1.0;
 uniform float far = 100.0;
 uniform vec3 edge_color : source_color;
 uniform sampler2D depth_texture : hint_depth_texture;
-uniform sampler2D screen_texture: hint_screen_texture;
-
+uniform sampler2D screen_texture : hint_screen_texture;
 
 // Varying variables
 varying float height;
 varying vec3 world_pos;
+varying float wave_time;
 
 float fresnel(float amount, vec3 normal, vec3 view)
 {
 	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
 }
+
 float edge(float depth){
 	depth = 2.0 * depth - 1.0;
 	return near * far / (far + depth * (near - far));
@@ -46,39 +47,40 @@ void vertex() {
 }
 
 void fragment() {
-	// Depth variables and calc
+	// Depth variables and calculation
 	float depth_texture_x = texture(depth_texture, SCREEN_UV).x;
 	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth_texture_x);
 	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0); 
 	view.xyz /= view.w;
-	float depth_blend = exp((-view.z+VERTEX.z + depth_offset) * -beers_law);
+
+	float depth_blend = exp((-view.z + VERTEX.z + depth_offset) * -beers_law);
 	depth_blend = clamp(1.0 - depth_blend, 0.0, 1.0);
 	float depth_blend_power = clamp(pow(depth_blend, 2.5), 0.0, 1.0);
 
-	// Retrieving depth color and applying the deep and shallow colors
+	// Retrieve depth color and apply the deep and shallow colors
 	vec3 screen_color = textureLod(screen_texture, SCREEN_UV, depth_blend_power * 2.5).rgb;
 	vec3 depth_color = mix(color_shallow.rgb, color_deep.rgb, depth_blend_power);
 	vec3 color = mix(screen_color * depth_color, depth_color * 0.25, depth_blend_power * 0.5);
-	
-	// Getting edge depth calc
+
+	// Edge depth calculation
 	float z_depth = edge(texture(depth_texture, SCREEN_UV).x);
 	float z_pos = edge(FRAGCOORD.z);
 	float z_dif = z_depth - z_pos;
-	
+
 	// Time calculations for wave (normal map) movement
 	vec2 time = (TIME * wave_direction) * time_scale; // Movement rate of first wave
 	vec2 time2 = (TIME * wave_direction2) * time_scale; // Movement rate of second wave
-	
+
 	// Blend normal maps into one
-	vec3 normal_blend = mix(texture(texture_normal,world_pos.xz + time).rgb, texture(texture_normal2,world_pos.xz + time2).rgb, 0.5);
-	
-	// Calculate Fresnel
+	vec3 normal_blend = mix(texture(texture_normal, world_pos.xz + time).rgb, texture(texture_normal2, world_pos.xz + time2).rgb, 0.5);
+
+	// Calculate Fresnel effect
 	float fresnel = fresnel(5.0, NORMAL, VIEW);
-	vec3 surface_color = mix(albedo, albedo2, fresnel); // Interpolate albedo values by frensel
-	
+	vec3 surface_color = mix(albedo, albedo2, fresnel); // Interpolate albedo values by Fresnel effect
+
 	vec3 depth_color_adj = mix(edge_color, color, step(edge_scale, z_dif));
-	
-	ALBEDO = clamp(surface_color + depth_color_adj,vec3(0.0),vec3(1.0));
+
+	ALBEDO = clamp(surface_color + depth_color_adj, vec3(0.0), vec3(1.0));
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
 	NORMAL_MAP = normal_blend;

@@ -1,0 +1,61 @@
+[gd_resource type="ShaderMaterial" load_steps=11 format=3 uid="uid://dt8kxqj37rh1x"]
+
+[ext_resource type="Shader" path="res://Shaders/Sand.gdshader" id="1_421xi"]
+[ext_resource type="Texture2D" uid="uid://cddhaaho7dorc" path="res://Textures/rock_surface_nor_gl_4k.png" id="2_1ls3t"]
+[ext_resource type="Texture2D" uid="uid://b28p78s0twjr" path="res://Textures/rock_surface_diff_4k.png" id="3_kfrwv"]
+[ext_resource type="Texture2D" uid="uid://b1s1vvyo7m4v1" path="res://Textures/rock_surface_rough_4k.png" id="3_ryqxq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k2ayq"]
+frequency = 0.0023
+fractal_type = 3
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_amplitude = 10.0
+domain_warp_fractal_lacunarity = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k5e7h"]
+seamless = true
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_k2ayq")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w4yej"]
+noise_type = 3
+seed = 115
+frequency = 0.0161
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x8xyl"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_w4yej")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_et14i"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1l0wg"]
+seamless = true
+as_normal_map = true
+bump_strength = 3.4
+noise = SubResource("FastNoiseLite_et14i")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_421xi")
+shader_parameter/sand_color = Color(0.9, 0.75, 0.45, 1)
+shader_parameter/wet_sand_color = Color(0.6, 0.5, 0.3, 1)
+shader_parameter/stone_tint = Color(0.729412, 0.756863, 0.756863, 1)
+shader_parameter/grain_size = 0.05
+shader_parameter/wave_scale = 1.0
+shader_parameter/wave_speed = 0.006
+shader_parameter/normal_strength = 0.432
+shader_parameter/elevation_threshold = 7.521
+shader_parameter/wet_sand_threshold = 0.736
+shader_parameter/blend_sharpness = 0.995
+shader_parameter/stone_scale = 5.0
+shader_parameter/elevation_noise_scale = 5.0
+shader_parameter/pixelation_amount = 512.0
+shader_parameter/grain_noise = SubResource("NoiseTexture2D_x8xyl")
+shader_parameter/wave_noise = SubResource("NoiseTexture2D_1l0wg")
+shader_parameter/stone_texture = ExtResource("3_kfrwv")
+shader_parameter/stone_normal_map = ExtResource("2_1ls3t")
+shader_parameter/stone_roughness_map = ExtResource("3_ryqxq")
+shader_parameter/elevation_noise = SubResource("NoiseTexture2D_k5e7h")

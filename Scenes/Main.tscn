@@ -1,14 +1,79 @@
-[gd_scene load_steps=12 format=3 uid="uid://1vqoc8t5le1f"]
+[gd_scene load_steps=19 format=3 uid="uid://1vqoc8t5le1f"]
 
 [ext_resource type="PackedScene" uid="uid://0kgnt3wfmey0" path="res://Scenes/player/lowpolyman.tscn" id="1_sb04a"]
-[ext_resource type="PackedScene" uid="uid://bf1lmdfly01vk" path="res://Scenes/testmap.tscn" id="1_x1iqn"]
-[ext_resource type="Environment" uid="uid://qpph2w2p3ekx" path="res://Resources/level_1_enviroment.tres" id="2_dah0n"]
+[ext_resource type="Shader" path="res://Shaders/Sky.gdshader" id="1_w1jo4"]
 [ext_resource type="PackedScene" uid="uid://dxmk6vre737fa" path="res://Scenes/Key.tscn" id="3_kd3yc"]
+[ext_resource type="PackedScene" uid="uid://c5rlwttupnyba" path="res://Scenes/player/2DPixelSprite.tscn" id="4_r2n2l"]
 [ext_resource type="Shader" path="res://Shaders/Dense_Fog_Material.gdshader" id="6_4b40k"]
 [ext_resource type="PackedScene" uid="uid://ow4ewqv7m6a6" path="res://Scenes/Mob1.tscn" id="7_2xo0l"]
+[ext_resource type="Script" path="res://Shaders/Cube.gd" id="8_fr126"]
 [ext_resource type="PackedScene" uid="uid://eqte88rjgec5" path="res://Scenes/startingisland.tscn" id="9_kg26j"]
-[ext_resource type="PackedScene" uid="uid://20qlj4u44nv1" path="res://Resources/boid.tscn" id="9_naiq5"]
 [ext_resource type="PackedScene" uid="uid://1mhui47f1mwk" path="res://Shaders/water_plane.tscn" id="10_ai00g"]
+
+[sub_resource type="Gradient" id="Gradient_nen2u"]
+offsets = PackedFloat32Array(0, 0.350394)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m7jrq"]
+noise_type = 3
+frequency = 1.0
+fractal_type = 2
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g0igr"]
+in_3d_space = true
+bump_strength = 15.0
+color_ramp = SubResource("Gradient_nen2u")
+noise = SubResource("FastNoiseLite_m7jrq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mhrbd"]
+shader = ExtResource("1_w1jo4")
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/day_bottom_color = Color(0.4, 0.8, 1, 1)
+shader_parameter/sunset_top_color = Color(0.7, 0.75, 1, 1)
+shader_parameter/sunset_bottom_color = Color(0.968499, 0.574779, 0.359559, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/night_bottom_color = Color(0.1, 0, 0.2, 1)
+shader_parameter/horizon_color = Color(0.587754, 0.347403, 0.385303, 1)
+shader_parameter/horizon_blur = 0.03
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_sunset_color = Color(10, 0, 0, 1)
+shader_parameter/sun_size = 0.2
+shader_parameter/sun_blur = 10.0
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_size = 0.06
+shader_parameter/moon_blur = 0.1
+shader_parameter/clouds_edge_color = Color(0.8, 0.8, 0.98, 1)
+shader_parameter/clouds_top_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_middle_color = Color(0.92, 0.92, 0.98, 1)
+shader_parameter/clouds_bottom_color = Color(0.83, 0.83, 0.94, 1)
+shader_parameter/clouds_speed = 2.0
+shader_parameter/clouds_direction = 0.2
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_cutoff = 0.3
+shader_parameter/clouds_fuzziness = 0.5
+shader_parameter/clouds_weight = 0.0
+shader_parameter/clouds_blur = 0.25
+shader_parameter/stars_speed = 1.0
+shader_parameter/stars_texture = SubResource("NoiseTexture2D_g0igr")
+shader_parameter/overwritten_time = 0.0
+
+[sub_resource type="Sky" id="Sky_xid71"]
+sky_material = SubResource("ShaderMaterial_mhrbd")
+
+[sub_resource type="Environment" id="Environment_mabto"]
+background_mode = 2
+sky = SubResource("Sky_xid71")
+ambient_light_source = 3
+ssao_enabled = true
+ssil_enabled = true
+ssil_radius = 16.0
+sdfgi_enabled = true
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.02
+glow_blend_mode = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lypdd"]
 render_priority = 0
@@ -20,21 +85,19 @@ shader_parameter/fog_start = 1.0
 shader_parameter/fog_end = 20.0
 shader_parameter/clear_radius = 5.0
 
-[sub_resource type="FogMaterial" id="FogMaterial_0m6t8"]
-density = -2.0
+[sub_resource type="BoxMesh" id="BoxMesh_ei81u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpxr2"]
 
 [node name="world" type="Node3D"]
 
-[node name="map" parent="." instance=ExtResource("1_x1iqn")]
-visible = false
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mabto")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.829808, -0.35048, 0.434261, 0, 0.778177, 0.628045, -0.558049, -0.521156, 0.645738, 26.6183, 46.572, 33.6188)
-light_color = Color(0.496735, 0.57829, 0.738592, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0)
 shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("2_dah0n")
+shadow_blur = 3.659
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6978, -2.39671)
@@ -42,34 +105,195 @@ shape = 4
 material = SubResource("ShaderMaterial_lypdd")
 
 [node name="Key" parent="." instance=ExtResource("3_kd3yc")]
-transform = Transform3D(-0.000331612, -0.0499989, 7.5496e-09, -0.0499977, 0.000331604, 0.000353424, -0.000353417, 2.33644e-06, -0.0499988, 2.38454, 0.712753, 0.0366035)
+transform = Transform3D(-0.00265289, -0.399991, 6.03968e-08, -0.399981, 0.00265283, 0.0028274, -0.00282733, 1.86916e-05, -0.39999, 24.1135, 8.17113, -13.6652)
 bounce_amplitude = 0.1
 bounce_speed = 0.5
 
+[node name="Node3D" parent="." instance=ExtResource("4_r2n2l")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 23.9882, 1.64649, -72.351)
+
 [node name="Mob1" parent="." instance=ExtResource("7_2xo0l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.456, 3.75512, -47.7339)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9987, 9.43811, -60.5203)
 
 [node name="Player" parent="." instance=ExtResource("1_sb04a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.545, 3.27021, -33.5091)
-
-[node name="FogVolume2" type="FogVolume" parent="Player"]
-transform = Transform3D(1.6383, 0.81116, 0.81116, 0, 1.41421, -1.41421, -1.14715, 1.15846, 1.15846, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.0786, 7.65427, -29.5374)
 visible = false
-size = Vector3(2, 3, 2)
-shape = 2
-material = SubResource("FogMaterial_0m6t8")
+script = null
 
 [node name="startingisland" parent="." instance=ExtResource("9_kg26j")]
-transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, 98, 0.163342, -31.7028)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 
-[node name="water_plane" parent="." instance=ExtResource("10_ai00g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.734, -0.464069, -72.6168)
+[node name="Water" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 
-[node name="Bird" parent="." instance=ExtResource("9_naiq5")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 100.769, 5.868, -50.7351)
+[node name="water_plane" parent="Water" instance=ExtResource("10_ai00g")]
 
-[node name="Bird2" parent="." instance=ExtResource("9_naiq5")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 99.1515, 5.868, -50.7351)
+[node name="water_plane3" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 390.171, 0, 0)
 
-[node name="Bird3" parent="." instance=ExtResource("9_naiq5")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 102.046, 5.868, -50.7351)
+[node name="water_plane2" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.728, 0, 0)
+
+[node name="water_plane7" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 395.274)
+
+[node name="water_plane8" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 390.171, 0, 395.274)
+
+[node name="water_plane9" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.728, 0, 395.274)
+
+[node name="water_plane4" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -380.558)
+
+[node name="water_plane5" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 390.171, 0, -380.558)
+
+[node name="water_plane6" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.728, 0, -380.558)
+
+[node name="water_plane10" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1171)
+
+[node name="water_plane11" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 390.171, 0, 1171)
+
+[node name="water_plane12" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.728, 0, 1171)
+
+[node name="water_plane13" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1566.27)
+
+[node name="water_plane14" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 390.171, 0, 1566.27)
+
+[node name="water_plane15" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.728, 0, 1566.27)
+
+[node name="water_plane16" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 790.442)
+
+[node name="water_plane17" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 390.171, 0, 790.442)
+
+[node name="water_plane18" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.728, 0, 790.442)
+
+[node name="water_plane19" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, 1171)
+
+[node name="water_plane20" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, 1171)
+
+[node name="water_plane21" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, 1171)
+
+[node name="water_plane22" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, 1566.27)
+
+[node name="water_plane23" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, 1566.27)
+
+[node name="water_plane24" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, 1566.27)
+
+[node name="water_plane25" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, 790.442)
+
+[node name="water_plane26" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, 790.442)
+
+[node name="water_plane27" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, 790.442)
+
+[node name="water_plane28" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, 2)
+
+[node name="water_plane29" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, 2)
+
+[node name="water_plane30" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, 2)
+
+[node name="water_plane31" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, 397.274)
+
+[node name="water_plane32" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, 397.274)
+
+[node name="water_plane33" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, 397.274)
+
+[node name="water_plane34" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, -378.558)
+
+[node name="water_plane35" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, -378.558)
+
+[node name="water_plane36" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, -378.558)
+
+[node name="water_plane37" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, -1161.44)
+
+[node name="water_plane38" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, -1161.44)
+
+[node name="water_plane39" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, -1161.44)
+
+[node name="water_plane40" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, -766.169)
+
+[node name="water_plane41" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, -766.169)
+
+[node name="water_plane42" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, -766.169)
+
+[node name="water_plane43" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1128.74, 0, -1542)
+
+[node name="water_plane44" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -738.572, 0, -1542)
+
+[node name="water_plane45" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1525.47, 0, -1542)
+
+[node name="water_plane46" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25708, 0, -1161.44)
+
+[node name="water_plane47" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 396.428, 0, -1161.44)
+
+[node name="water_plane48" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -390.471, 0, -1161.44)
+
+[node name="water_plane49" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25708, 0, -766.169)
+
+[node name="water_plane50" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 396.428, 0, -766.169)
+
+[node name="water_plane51" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -390.471, 0, -766.169)
+
+[node name="water_plane52" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25708, 0, -1542)
+
+[node name="water_plane53" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 396.428, 0, -1542)
+
+[node name="water_plane54" parent="Water" instance=ExtResource("10_ai00g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -390.471, 0, -1542)
+
+[node name="Cube" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4134, 5.28147, -119.601)
+script = ExtResource("8_fr126")
+float_force = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_ei81u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("BoxShape3D_kpxr2")

@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://1mhui47f1mwk"]
+
+[ext_resource type="Material" uid="uid://bkc8mcpwcp5bb" path="res://Shaders/Water.tres" id="1_p07cy"]
+[ext_resource type="Material" uid="uid://bu45fqqd176ua" path="res://Shaders/WaterStylized.tres" id="2_2vhc7"]
+[ext_resource type="Script" path="res://Shaders/WaterPlane.gd" id="2_ntbfb"]
+[ext_resource type="Script" path="res://Shaders/Cube.gd" id="3_qjheo"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_d1vjl"]
+lightmap_size_hint = Vector2i(7, 7)
+subdivide_width = 50
+subdivide_depth = 50
+orientation = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yg7i8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_svvyc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6gtsv"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WaterPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_d1vjl")
+surface_material_override/0 = ExtResource("1_p07cy")
+script = ExtResource("2_ntbfb")
+
+[node name="WaterPlane2" type="MeshInstance3D" parent="."]
+transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, 0, -1.98673, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("QuadMesh_d1vjl")
+surface_material_override/0 = ExtResource("2_2vhc7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08797, 0.716401, 1.7728)
+mesh = SubResource("CapsuleMesh_yg7i8")
+
+[node name="Cube" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97327, 0)
+visible = false
+script = ExtResource("3_qjheo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_svvyc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("BoxShape3D_6gtsv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.965926, -7.19671e-09, 0.258819, 0.0669873, 0.965926, 0.25, -0.25, 0.258819, -0.933013, 0, 6.02247, -8.2517)
+visible = false

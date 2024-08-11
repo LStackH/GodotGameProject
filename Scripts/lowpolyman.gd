@@ -10,8 +10,8 @@ extends CharacterBody3D
 @onready var fog_volume = get_parent().get_node("FogVolume")
 #@export var fog_material : ShaderMaterial
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 6.5
+const JUMP_VELOCITY = 6.5
 const LERP_VALUE = 0.25
 const INITIAL_ROTATION_SPEED = 0.01
 const MAX_ROTATION_SPEED = 0.03

@@ -1,68 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://1mhui47f1mwk"]
+[gd_scene load_steps=8 format=3 uid="uid://1mhui47f1mwk"]
 
 [ext_resource type="Material" uid="uid://bkc8mcpwcp5bb" path="res://Shaders/Water.tres" id="1_p07cy"]
-[ext_resource type="Shader" path="res://Shaders/Water.gdshader" id="2_iru6s"]
+[ext_resource type="Material" uid="uid://bu45fqqd176ua" path="res://Shaders/WaterStylized.tres" id="2_2vhc7"]
+[ext_resource type="Script" path="res://Shaders/WaterPlane.gd" id="2_ntbfb"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_d1vjl"]
 lightmap_size_hint = Vector2i(7, 7)
+material = ExtResource("1_p07cy")
 subdivide_width = 200
 subdivide_depth = 200
 orientation = 1
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_a0t3s"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yg7i8"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ybtdl"]
-noise_type = 3
-fractal_type = 2
+[sub_resource type="BoxMesh" id="BoxMesh_svvyc"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c7qsc"]
-seamless = true
-as_normal_map = true
-bump_strength = 66.5
-noise = SubResource("FastNoiseLite_ybtdl")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8yrl4"]
-noise_type = 3
-seed = 10
-fractal_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lg4q7"]
-seamless = true
-as_normal_map = true
-bump_strength = 32.0
-noise = SubResource("FastNoiseLite_8yrl4")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_uxvao"]
-noise_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nd7bw"]
-seamless = true
-seamless_blend_skirt = 0.125
-noise = SubResource("FastNoiseLite_uxvao")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5sta"]
-render_priority = 0
-shader = ExtResource("2_iru6s")
-shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
-shader_parameter/albedo2 = Color(0.172359, 0.283251, 0.225079, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/roughness = 0.02
-shader_parameter/wave_direction = Vector2(2, 0)
-shader_parameter/wave_direction2 = Vector2(0, 1)
-shader_parameter/time_scale = 0.025
-shader_parameter/noise_scale = 10.0
-shader_parameter/height_scale = 0.15
-shader_parameter/color_deep = Color(0.0245407, 0.235377, 0.377553, 1)
-shader_parameter/color_shallow = Color(0.651694, 0.822621, 0.976658, 1)
-shader_parameter/beers_law = 2.0
-shader_parameter/depth_offset = -0.75
-shader_parameter/edge_scale = 0.1
-shader_parameter/near = 1.0
-shader_parameter/far = 100.0
-shader_parameter/edge_color = Color(0.91664, 0.91664, 0.91664, 1)
-shader_parameter/wave = SubResource("NoiseTexture2D_nd7bw")
-shader_parameter/texture_normal = SubResource("NoiseTexture2D_c7qsc")
-shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_lg4q7")
+[sub_resource type="BoxShape3D" id="BoxShape3D_6gtsv"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -71,10 +24,30 @@ transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_d1vjl")
 surface_material_override/0 = ExtResource("1_p07cy")
+script = ExtResource("2_ntbfb")
+
+[node name="WaterPlane2" type="MeshInstance3D" parent="."]
+transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, 0, -1.98673, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("QuadMesh_d1vjl")
+surface_material_override/0 = ExtResource("2_2vhc7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 4.7831, 18.9582)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08797, 0.716401, 1.7728)
 visible = false
-mesh = SubResource("PlaneMesh_a0t3s")
-skeleton = NodePath("../WaterPlane")
-surface_material_override/0 = SubResource("ShaderMaterial_g5sta")
+mesh = SubResource("CapsuleMesh_yg7i8")
+
+[node name="Cube" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.97327, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_svvyc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("BoxShape3D_6gtsv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.965926, -7.19671e-09, 0.258819, 0.0669873, 0.965926, 0.25, -0.25, 0.258819, -0.933013, 0, 6.02247, -8.2517)
+visible = false
