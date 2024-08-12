@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://4km6s37aje17"]
+
+[ext_resource type="Script" path="res://Scenes/GUI/health_bar.gd" id="1_jul6c"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_78mwd"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sei3b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j14e2"]
+bg_color = Color(1, 0.336743, 0.32887, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msdkn"]
+bg_color = Color(0.317738, 0.706167, 0, 1)
+
+[node name="Node" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = SubResource("ViewportTexture_78mwd")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(80, 10)
+
+[node name="Panel" type="Panel" parent="Sprite3D/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sei3b")
+
+[node name="HealthBar" type="ProgressBar" parent="Sprite3D/SubViewport/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062
+anchor_top = 0.5
+anchor_right = 0.937
+anchor_bottom = 0.5
+offset_left = 0.0639997
+offset_top = -8.0
+offset_right = 0.0639954
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_j14e2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_msdkn")
+show_percentage = false
+script = ExtResource("1_jul6c")

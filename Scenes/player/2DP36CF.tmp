@@ -1,15 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5rlwttupnyba"]
+[gd_scene load_steps=11 format=3 uid="uid://c5rlwttupnyba"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/2DPixelSpriteMovement.gd" id="1_0il37"]
 [ext_resource type="Texture2D" uid="uid://ckp254gja2dm4" path="res://AnimationSprites/Shinobi/Walk.png" id="2_xs1on"]
 [ext_resource type="CameraAttributesPractical" uid="uid://buyksdham6vvw" path="res://CameraAttributes/DepthOfField.tres" id="3_2pcq4"]
 [ext_resource type="Script" path="res://Scripts/CameraScripts/base_camera_script.gd" id="4_p2ipl"]
 [ext_resource type="SpriteFrames" uid="uid://du5k4emefigqn" path="res://AnimationSprites/SpriteFrames/ShinobiSpriteFrames.tres" id="5_253vv"]
-[ext_resource type="PackedScene" uid="uid://4km6s37aje17" path="res://Scenes/GUI/health_bar.tscn" id="6_xh8yj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7we7j"]
-radius = 0.277483
-height = 0.785038
+radius = 0.186487
+height = 0.780686
 
 [sub_resource type="Animation" id="Animation_hq7pg"]
 length = 0.001
@@ -52,7 +51,7 @@ _data = {
 [sub_resource type="FogMaterial" id="FogMaterial_oga3p"]
 density = -2.0
 
-[node name="Player2D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_0il37")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -65,7 +64,7 @@ shaded = true
 alpha_cut = 1
 texture_filter = 0
 sprite_frames = ExtResource("5_253vv")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -88,6 +87,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.909961, 0.414693, 0, -0.414693, 0.909961, 0, 0, 0)
+spring_length = 3.0
 
 [node name="base_camera" type="Camera3D" parent="SpringArmPivot/SpringArm3D" node_paths=PackedStringArray("target_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 0)
@@ -105,8 +105,5 @@ material = SubResource("FogMaterial_oga3p")
 size = Vector3(1, 1, 1)
 shape = 0
 material = SubResource("FogMaterial_oga3p")
-
-[node name="HealthBar" parent="." instance=ExtResource("6_xh8yj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.646422, 0)
 
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]

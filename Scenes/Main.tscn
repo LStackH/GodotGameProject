@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://1vqoc8t5le1f"]
+[gd_scene load_steps=18 format=3 uid="uid://1vqoc8t5le1f"]
 
-[ext_resource type="PackedScene" uid="uid://0kgnt3wfmey0" path="res://Scenes/player/lowpolyman.tscn" id="1_sb04a"]
 [ext_resource type="Shader" path="res://Shaders/Sky.gdshader" id="1_w1jo4"]
 [ext_resource type="PackedScene" uid="uid://dxmk6vre737fa" path="res://Scenes/Key.tscn" id="3_kd3yc"]
 [ext_resource type="PackedScene" uid="uid://c5rlwttupnyba" path="res://Scenes/player/2DPixelSprite.tscn" id="4_r2n2l"]
+[ext_resource type="PackedScene" uid="uid://cjygb2ygvodfs" path="res://Scenes/NPC/npc_orc.tscn" id="5_3y4dm"]
 [ext_resource type="Shader" path="res://Shaders/Dense_Fog_Material.gdshader" id="6_4b40k"]
-[ext_resource type="PackedScene" uid="uid://ow4ewqv7m6a6" path="res://Scenes/Mob1.tscn" id="7_2xo0l"]
 [ext_resource type="Script" path="res://Shaders/Cube.gd" id="8_fr126"]
 [ext_resource type="PackedScene" uid="uid://eqte88rjgec5" path="res://Scenes/startingisland.tscn" id="9_kg26j"]
 [ext_resource type="PackedScene" uid="uid://1mhui47f1mwk" path="res://Shaders/water_plane.tscn" id="10_ai00g"]
@@ -95,9 +94,10 @@ shader_parameter/clear_radius = 5.0
 environment = SubResource("Environment_mabto")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0)
+transform = Transform3D(0.707107, -0.244163, 0.663615, 0, 0.938493, 0.345298, -0.707107, -0.244163, 0.663615, 0, 0, 0)
 shadow_enabled = true
 shadow_blur = 3.659
+directional_shadow_blend_splits = true
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6978, -2.39671)
@@ -109,16 +109,8 @@ transform = Transform3D(-0.00265289, -0.399991, 6.03968e-08, -0.399981, 0.002652
 bounce_amplitude = 0.1
 bounce_speed = 0.5
 
-[node name="Node3D" parent="." instance=ExtResource("4_r2n2l")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 23.9882, 1.64649, -72.351)
-
-[node name="Mob1" parent="." instance=ExtResource("7_2xo0l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9987, 9.43811, -60.5203)
-
-[node name="Player" parent="." instance=ExtResource("1_sb04a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.0786, 7.65427, -29.5374)
-visible = false
-script = null
+[node name="Player2D" parent="." instance=ExtResource("4_r2n2l")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 19.9882, 3.07061, -72.351)
 
 [node name="startingisland" parent="." instance=ExtResource("9_kg26j")]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
@@ -297,3 +289,23 @@ mesh = SubResource("BoxMesh_ei81u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
 shape = SubResource("BoxShape3D_kpxr2")
+
+[node name="NPC\'s" type="Node3D" parent="."]
+
+[node name="NPC_Orc" parent="NPC\'s" instance=ExtResource("5_3y4dm")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 19, 6.3229, -31)
+
+[node name="NPC_Orc2" parent="NPC\'s" instance=ExtResource("5_3y4dm")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 16, 6.3229, -31)
+
+[node name="NPC_Orc3" parent="NPC\'s" instance=ExtResource("5_3y4dm")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 22, 6.3229, -31)
+
+[node name="NPC_Orc4" parent="NPC\'s" instance=ExtResource("5_3y4dm")]
+transform = Transform3D(0.485131, 0, -1.94027, 0, 2, 0, 1.94027, 0, 0.485131, 9, 6.3229, -38)
+
+[node name="NPC_Orc5" parent="NPC\'s" instance=ExtResource("5_3y4dm")]
+transform = Transform3D(0.485131, 0, -1.94027, 0, 2, 0, 1.94027, 0, 0.485131, 8.2723, 6.3229, -40.9104)
+
+[node name="NPC_Orc6" parent="NPC\'s" instance=ExtResource("5_3y4dm")]
+transform = Transform3D(0.485131, 0, -1.94027, 0, 2, 0, 1.94027, 0, 0.485131, 9.7277, 6.3229, -35.0896)

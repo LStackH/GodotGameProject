@@ -4,7 +4,7 @@ extends Area3D  # Use Area3D for simplicity
 @export var bounce_amplitude: float = 1.0  # Amplitude of the bounce
 @export var bounce_speed: float = 1.0      # Speed of the bounce
 
-@onready var player = get_parent().get_node("Player")  # Adjust the path to your player node
+@onready var player = get_parent().get_node("Player2D")  # Adjust the path to your player node
 
 var initial_position: Vector3  # Initial position of the key
 var elapsed_time: float = 0.0  # Elapsed time for sine wave calculation
